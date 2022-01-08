@@ -13,7 +13,7 @@ app.use(taskRoutes);
 
 const startApp = async () => {
 
-    await mongoose.connect(CONNECTION_URL);
+    await mongoose.connect(process.env.MONGODB_URL);
 
     app.listen(PORT, () => {
         console.log(`application started on ${PORT}`);

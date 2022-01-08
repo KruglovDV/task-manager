@@ -15,7 +15,6 @@ router.post('/users', async (req, res) => {
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
     } catch (error) {
-        console.log(error);
         res.status(400).send(error);
     }
 });
@@ -26,7 +25,6 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken();
         res.send({ user, token });
     } catch (error) {
-        console.log(error);
         res.status(400).send(error);
     }
 });
@@ -61,17 +59,15 @@ router.patch('/users/me', auth, async (req, res) => {
         await req.user.save();
         res.send(req.user);
     } catch (error) {
-        console.log(error);
         res.status(500).send(error);
     }
 });
 
 router.delete('/users/me', auth, async (req, res) => {
     try {
-        req.user.remove();
+        await req.user.remove();
         res.send(req.user);
     } catch (error) {
-        console.log(error);
         res.status(500).send(error);
     }
 });
