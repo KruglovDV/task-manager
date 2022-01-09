@@ -7,17 +7,17 @@ const taskRoutes = require('./routers/task');
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
 app.use(userRoutes);
 app.use(taskRoutes);
 
 const startApp = async () => {
+  await mongoose.connect(process.env.MONGODB_URL);
 
-    await mongoose.connect(process.env.MONGODB_URL);
-
-    app.listen(PORT, () => {
-        console.log(`application started on ${PORT}`);
-    });
+  app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`application started on ${PORT}`);
+  });
 };
 
 module.exports = { app, startApp };
